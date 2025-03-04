@@ -106,6 +106,11 @@ class EquationSolver:
             self.steps.append(f"Уравнение {deg}-й степени. Решения: {solutions}")
             return solutions
 
+    def solve_polynomial(self):
+        coefficients = [self.expr.coeff(x, i) for i in range(self.expr.as_poly().degree() + 1)]
+        roots = solve(self.expr, x)
+        return roots
+
 def main():
     user_input = input("Введите задачу: ").strip()
     
