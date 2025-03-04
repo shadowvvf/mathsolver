@@ -123,7 +123,6 @@ class EquationSolver:
 
 def main():
     user_input = input("Введите задачу: ").strip()
-    
     try:
         if '=' in user_input:
             lhs, rhs = user_input.split('=', 1)
@@ -149,7 +148,6 @@ def main():
             for i, step in enumerate(steps, 1):
                 print(f"{i}. {step}")
             print(f"\nРезультат: {result}")
-    
     except Exception as e:
         print(f"Ошибка: {e}")
 
