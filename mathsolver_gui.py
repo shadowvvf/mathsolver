@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QTextEdit, QPushButton, QLabel
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QTextEdit, QPushButton, QLabel, QMessageBox
 from PySide6.QtCore import Qt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -134,6 +134,11 @@ class MainWindow(QMainWindow):
         self.solve_button.clicked.connect(self.solve_expression)
         layout.addWidget(self.solve_button)
         
+        # Кнопка для отображения шагов решения
+        self.show_steps_button = QPushButton("Show Steps")
+        self.show_steps_button.clicked.connect(self.display_steps)
+        layout.addWidget(self.show_steps_button)
+        
         # Область для вывода шагов решения
         self.output_steps = QTextEdit()
         self.output_steps.setReadOnly(True)
@@ -178,6 +183,11 @@ class MainWindow(QMainWindow):
         
         except Exception as e:
             self.output_steps.append(f"Ошибка: {e}")
+    
+    def display_steps(self):
+        steps = self.simplifier.get_steps()
+        steps_text = '\n'.join(steps)
+        QMessageBox.information(self, "Simplification Steps", steps_text)
     
     def display_latex(self, result):
         self.figure.clear()
