@@ -38,6 +38,9 @@ class Simplifier:
             if self.collect_terms_step():
                 changed = True
         return self.steps, self.expr
+    
+    def get_steps(self):
+        return self.steps
 
 class EquationSolver:
     def __init__(self, equation):
