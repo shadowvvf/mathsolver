@@ -29,6 +29,14 @@ class Simplifier:
             return True
         return False
     
+    def simplify_trig(self):
+        simplified = sympy.simplify(self.expr)
+        if simplified != self.expr:
+            self.steps.append(f"Упрощение тригонометрической функции: {self.expr} → {simplified}")
+            self.expr = simplified
+            return True
+        return False
+    
     def simplify(self):
         changed = True
         while changed:
@@ -36,6 +44,8 @@ class Simplifier:
             if self.expand_step():
                 changed = True
             if self.collect_terms_step():
+                changed = True
+            if self.simplify_trig():
                 changed = True
         return self.steps, self.expr
     
